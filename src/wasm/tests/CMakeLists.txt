@@ -29,6 +29,7 @@ add_executable(e195e2_systems_core_tests
     APUSystemTests.cpp
     LandingGearSystemTests.cpp
     FlyByWireTests.cpp
+    SimBusTests.cpp
 )
 
 target_link_libraries(e195e2_systems_core_tests

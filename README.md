@@ -14,7 +14,7 @@ do pacote MSFS existem e são testados; ainda **não carrega no simulador**
 
 | Camada | Estado |
 |---|---|
-| Core de sistemas (C++20/WASM) | 8 sistemas implementados, **60/60 testes passando** (GoogleTest) |
+| Core de sistemas (C++20/WASM) | 8 sistemas + `SimBus` de integração, **66/66 testes passando** (GoogleTest) |
 | Aviônicos (React/TS) | Scaffold + guardas de segurança compartilhadas (Vitest) |
 | Modelo 3D | Greybox exterior (glTF) gerado via Blender, sem textura/interior |
 | Pacote MSFS | `aircraft.cfg`/`flight_model.cfg`/`engines.cfg`/`panel.xml`/`model/` presentes; falta gerar manifest/layout |
@@ -90,10 +90,13 @@ receber um número plausível, porém fabricado.
   simulador. Não é para editar esses dois arquivos à mão (a própria
   documentação do SDK avisa que isso desatualiza o índice do pacote).
 - Modelo 3D é só um greybox — sem textura, sem interior/cockpit real.
-- Barramento de integração entre sistemas (hoje cada sistema físico é
-  isolado e testado isoladamente).
+- Acoplamentos ainda não ligáveis no `SimBus` (combustível ↔ powerplant,
+  pneumático ↔ motor/APU, sensores de atitude → FBW) — bloqueados por
+  lacuna de API no sistema de origem/destino, ver `SimBus.h`.
 - Conectar o React dos aviônicos aos 5 HTMLs de DU do painel (depende do
-  modelo de interior e do binding de glasscockpit, ainda não resolvido).
+  modelo de interior e do binding de glasscockpit, ainda não resolvido) —
+  próximo passo, vai ler o estado do `SimBus` (elétrico, trem de pouso,
+  flaps/speedbrake via `FlyByWire`) para os instrumentos.
 
 ## Licença
 

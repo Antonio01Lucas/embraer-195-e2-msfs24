@@ -56,10 +56,19 @@ de estado fisicamente impossíveis — como este código roda a cada frame do
 simulador, qualquer valor inválido se propagaria imediatamente para o
 resto da aeronave.
 
-**Barramento entre sistemas**: ainda não existe. Hoje cada sistema é
-testado isoladamente; a integração entre eles (ex: FBW consumindo pressão
-hidráulica real, elétrico alimentando aviônicos) é a próxima peça em
-aberto — ver Status abaixo.
+**Barramento entre sistemas**: `SimBus` (`include/SimBus.h` /
+`src/SimBus.cpp`) possui os 8 sistemas e é o único lugar do core que
+conhece as dependências cruzadas entre eles — cada sistema continua sem
+saber da existência dos outros, o bus só liga getter de um em setter de
+outro. Acoplamentos ligados hoje: motor rodando → elegibilidade do IDG no
+elétrico; disponibilidade elétrica do APU → gerador do APU no elétrico;
+motor rodando → bomba de motor (EDP) no hidráulico; pressão hidráulica →
+trem de pouso (ainda sem efeito observável, LandingGearSystem não
+consome esse dado ainda). Acoplamentos que faltam (combustível ↔
+powerplant, pneumático ↔ motor/APU, sensores de atitude → FBW) estão
+documentados no próprio `SimBus.h` — bloqueados por lacuna de API do
+sistema de origem/destino, não por esquecimento. 66/66 testes passando
+(GoogleTest), incluindo os 6 de `SimBusTests.cpp`.
 
 ### Regras de compilação
 
