@@ -87,8 +87,12 @@ receber um número plausível, porém fabricado.
 - Barramento de integração entre sistemas (hoje cada sistema físico é
   isolado e testado isoladamente).
 - Conectar o React dos aviônicos aos 5 HTMLs de DU do painel.
-- Licença do projeto ainda não definida (`package.json` está como
-  `UNLICENSED`).
+
+## Licença
+
+Código sob [MIT](LICENSE). Isso cobre o código-fonte (C++, TypeScript,
+configs) — não implica nenhum direito sobre as marcas "Embraer" ou
+"Profit Hunter", que pertencem à Embraer S.A. (ver Aviso legal).
 
 ## Contribuindo
 

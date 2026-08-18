@@ -2,6 +2,7 @@
   "name": "@e195e2/avionics",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "description": "Suite de aviônicos (Honeywell Primus Epic 2.0 - PFD/MFD/EICAS/Synoptics/FMS) em React/TypeScript, compilada para bundle único e renderizada via Coherent GT no MSFS 2024.",
   "type": "module",
   "scripts": {

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Embraer E195-E2 study-level addon para Microsoft Flight Simulator 2024. Arquitetura: flight model + core de sistemas em C++/WASM, aviônicos (Primus Epic 2.0) em React/TypeScript sobre Coherent GT.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "workspaces": [
     "src/avionics"
   ],
