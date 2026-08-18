@@ -8,6 +8,8 @@ build/
 coverage/
 CMakeCache.txt
 CMakeFiles/
+__pycache__/
+*.pyc
 
 # Folheto oficial Embraer (copyright Embraer S.A.) - não redistribuir
 # publicamente; mantido só localmente como referência.
