@@ -52,6 +52,7 @@ add_library(e195e2_systems_core STATIC
     src/LandingGearSystem.cpp
     src/FlyByWire.cpp
     src/SimBus.cpp
+    src/SimVarPublisher.cpp
 )
 
 target_include_directories(e195e2_systems_core

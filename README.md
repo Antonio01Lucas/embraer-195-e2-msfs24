@@ -14,7 +14,7 @@ do pacote MSFS existem e são testados; ainda **não carrega no simulador**
 
 | Camada | Estado |
 |---|---|
-| Core de sistemas (C++20/WASM) | 8 sistemas + `SimBus` de integração, **66/66 testes passando** (GoogleTest) |
+| Core de sistemas (C++20/WASM) | 8 sistemas + `SimBus` + `SimVarPublisher`, **71/71 testes passando** (GoogleTest) |
 | Aviônicos (React/TS) | Scaffold + guardas de segurança compartilhadas (Vitest) |
 | Modelo 3D | Greybox exterior (glTF) gerado via Blender, sem textura/interior |
 | Pacote MSFS | `aircraft.cfg`/`flight_model.cfg`/`engines.cfg`/`panel.xml`/`model/` presentes; falta gerar manifest/layout |
@@ -95,8 +95,11 @@ receber um número plausível, porém fabricado.
   lacuna de API no sistema de origem/destino, ver `SimBus.h`.
 - Conectar o React dos aviônicos aos 5 HTMLs de DU do painel (depende do
   modelo de interior e do binding de glasscockpit, ainda não resolvido) —
-  próximo passo, vai ler o estado do `SimBus` (elétrico, trem de pouso,
-  flaps/speedbrake via `FlyByWire`) para os instrumentos.
+  já tem as L:Vars publicadas (ver `tools/msfs/README.md`) para ler via
+  `SimVar.GetSimVarValue`, falta o lado React consumir.
+- `tools/msfs/lvar_bridge.*` (chamada real à Vars API do MSFS 2024) não
+  está compilada/testada neste ambiente — falta o SDK real. Ver
+  `tools/msfs/README.md` para o que falta confirmar.
 
 ## Licença
 

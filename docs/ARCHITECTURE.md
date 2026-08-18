@@ -90,6 +90,16 @@ cmake --build src/wasm/build
 ctest --test-dir src/wasm/build --output-on-failure
 ```
 
+### SimVars (ponte para os aviônicos)
+
+`SimVarPublisher` (`include/SimVarPublisher.h`) traduz o `SimBus` para a
+lista de L:Vars a publicar (elétrico, trem de pouso, flap/slat/
+speedbrake/spoilers) — pura, testada com GoogleTest. `tools/msfs/lvar_bridge.h`
+faz a chamada real à Vars API do MSFS 2024 SDK para publicar esses
+valores como L:Vars de verdade; como não temos o SDK instalado neste
+ambiente, esse arquivo é escrito a partir da documentação oficial (fontes
+citadas) mas não compilado/testado aqui — ver `tools/msfs/README.md`.
+
 ## Aviônicos (`src/avionics/`)
 
 React + TypeScript, buildado com Vite para um bundle único (caminhos
