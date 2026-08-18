@@ -104,14 +104,27 @@ Estrutura padrão de um addon MSFS 2024:
 `SimObjects/Airplanes/embraer-e195-e2/` com `aircraft.cfg`,
 `flight_model.cfg`, `engines.cfg` e `panel/panel.xml`.
 
+`model/` contém um greybox exterior (gerado por
+`tools/blender/generate_greybox.py`, exportado para glTF via
+`tools/blender/export_greybox_gltf.py`) — geometria de bloqueio de
+volume, sem textura, sem interior/cockpit.
+
 **Pendências explícitas** (ver comentários `TODO` nos próprios arquivos,
 não preenchidas com números inventados):
-- Sem modelo 3D — `aircraft.cfg` não carrega no MSFS até isso existir.
-- Sem `manifest.json` do pacote — necessário para o simulador reconhecer
-  o addon.
+- Modelo é só um greybox — sem textura, sem interior/cockpit 3D, sem
+  LODs reais.
+- Sem `manifest.json`/`layout.json` — conforme a documentação oficial do
+  SDK, esses dois arquivos são **gerados** pelo Package Tool/Project
+  Editor a partir de `embraer-e195-e2-msfs24.xml` (na raiz do repo), não
+  editados à mão. Falta rodar esse projeto pelo SDK real (MSFS 2024
+  Developer Mode ou Package Tool standalone) — não disponível no
+  ambiente onde este repo foi desenvolvido até agora.
 - CG, V-speeds de baixa velocidade, geometria detalhada de asa
   (chord/dihedral/sweep) e curvas reais de FADEC ainda não têm fonte
   confirmada.
+- Binding das 5 telas do painel (`SCREEN_DU*` no greybox) ao sistema de
+  glasscockpit do MSFS 2024 SDK ainda não resolvido — não incluídas no
+  export atual do modelo por esse motivo.
 
 ## CI (`.github/workflows/security-audit.yml`)
 

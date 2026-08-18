@@ -32,11 +32,28 @@ O topo do arquivo separa explicitamente:
   painel). Cada uma comenta o porquê. Não usar esses números como se
   fossem dado real — mesma regra do resto do projeto.
 
-## Depois de gerar
+## Exportar
 
-Exportar via addon oficial "Microsoft Flight Simulator" do Blender.
-Confirme a convenção de eixos do exportador antes de exportar (o script
-assume +Y = nariz, +Z = cima, +X = direita). As 5 telas (`SCREEN_DU*`)
-ainda precisam do material/template de glasscockpit do MSFS 2024 SDK
-vinculado ao `Panel` correspondente em `panel.xml` — o binding exato
-varia por versão do SDK, validar contra a documentação oficial atual.
+`export_greybox_gltf.py` já faz isso: gera o greybox, seleciona só os
+objetos `GREYBOX_*` (exterior) e exporta via exportador glTF nativo do
+Blender para
+`PackageSources/SimObjects/Airplanes/embraer-e195-e2/model/embraer_e195e2_greybox.gltf`.
+
+```bash
+blender --background --python tools/blender/export_greybox_gltf.py
+```
+
+Verificado de verdade: rodado headless no Blender 5.2 LTS local, com
+reimport do `.gltf` gerado confirmando os 8 objetos exportados.
+
+As telas (`SCREEN_DU*`) e os marcadores de trem de pouso (`CONTACT_*`)
+ficam de fora desse export de propósito — telas porque o binding de
+glasscockpit do MSFS 2024 SDK ainda não foi resolvido (ver
+`docs/ARCHITECTURE.md`), marcadores porque são só referência visual para
+preencher `[CONTACT_POINTS]` em `flight_model.cfg`, não geometria real.
+
+Este export usa o exportador glTF **nativo** do Blender (sem addon
+externo) — suficiente para um greybox estático. Animações/comportamentos
+interativos (trem de pouso, superfícies de comando) exigem o addon
+oficial "Microsoft Flight Simulator" do Blender, que embute extensões
+específicas do SDK no glTF — ainda não instalado neste projeto.

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Ref: MSFS 2024 SDK - docs.flightsimulator.com,
+  "5_Content_Configuration/Models/Model_Files_Setup.htm" (exemplo oficial
+  do tutorial "tutorial_aircraft").
+
+  Um único LOD por enquanto - isto é um greybox de bloqueio de volume
+  (ver tools/blender/generate_greybox.py), não um asset de produção com
+  múltiplos níveis de detalhe. minSize="1" replica o menor threshold do
+  exemplo oficial (carrega em qualquer tamanho de tela).
+  TODO(Fase 4): LODs reais (LODx0..LODx4) quando o modelo de produção
+  (texturizado, com detalhe real) existir.
+-->
+<ModelInfo version="1.0" guid="">
+    <LODS>
+        <LOD minSize="1" ModelFile="embraer_e195e2_greybox.gltf"/>
+    </LODS>
+</ModelInfo>

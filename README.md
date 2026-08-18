@@ -7,15 +7,17 @@ independente de fã — **sem afiliação oficial com a Embraer S.A.**
 
 ## Status
 
-Fase de fundação: o core de sistemas físicos e a estrutura do pacote MSFS
-existem e são testados; ainda **não carrega no simulador** (falta modelo
-3D e `manifest.json` do pacote — ver [Pendências](#pendências)).
+Fase de fundação: o core de sistemas físicos, o greybox 3D e a estrutura
+do pacote MSFS existem e são testados; ainda **não carrega no simulador**
+(falta gerar `manifest.json`/`layout.json` via Package Tool — ver
+[Pendências](#pendências)).
 
 | Camada | Estado |
 |---|---|
 | Core de sistemas (C++20/WASM) | 8 sistemas implementados, **60/60 testes passando** (GoogleTest) |
 | Aviônicos (React/TS) | Scaffold + guardas de segurança compartilhadas (Vitest) |
-| Pacote MSFS | `aircraft.cfg`/`flight_model.cfg`/`engines.cfg`/`panel.xml` presentes, sem modelo 3D |
+| Modelo 3D | Greybox exterior (glTF) gerado via Blender, sem textura/interior |
+| Pacote MSFS | `aircraft.cfg`/`flight_model.cfg`/`engines.cfg`/`panel.xml`/`model/` presentes; falta gerar manifest/layout |
 | CI | Audit + lint + build de verificação com sanitizers em toda PR |
 
 Detalhes de design em [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
@@ -82,11 +84,16 @@ receber um número plausível, porém fabricado.
 
 ## Pendências
 
-- Modelo 3D e `manifest.json` do pacote — sem eles o addon não carrega no
-  MSFS.
+- Gerar `manifest.json`/`layout.json` a partir de
+  `embraer-e195-e2-msfs24.xml` pelo Package Tool/Project Editor do SDK
+  (MSFS 2024 Developer Mode) — sem isso o addon não é reconhecido pelo
+  simulador. Não é para editar esses dois arquivos à mão (a própria
+  documentação do SDK avisa que isso desatualiza o índice do pacote).
+- Modelo 3D é só um greybox — sem textura, sem interior/cockpit real.
 - Barramento de integração entre sistemas (hoje cada sistema físico é
   isolado e testado isoladamente).
-- Conectar o React dos aviônicos aos 5 HTMLs de DU do painel.
+- Conectar o React dos aviônicos aos 5 HTMLs de DU do painel (depende do
+  modelo de interior e do binding de glasscockpit, ainda não resolvido).
 
 ## Licença
 

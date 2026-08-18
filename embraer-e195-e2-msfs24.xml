@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Ref: MSFS 2024 SDK - docs.flightsimulator.com,
+  "Additional_Information/Tools/Package_Tool/Package_Tool_XML_Definitions.htm".
+
+  Projeto de Package Definitions para o Package Tool / Project Editor do
+  MSFS 2024. Este XML é a ENTRADA da ferramenta de empacotamento - ela
+  gera manifest.json e layout.json a partir daqui.
+
+  NOTA DE HONESTIDADE TÉCNICA (mesma regra de panel.xml): a documentação
+  oficial recomenda usar o Project Editor (MSFS 2024 Developer Mode) para
+  criar/editar este arquivo, porque ele "sempre gera XML correto". Este
+  arquivo foi escrito à mão seguindo o exemplo documentado na página
+  acima - válido como ponto de partida, mas ainda não foi processado pelo
+  Package Tool real (isso exige o SDK/jogo instalado, fora deste
+  ambiente). Abra este projeto no Project Editor antes do primeiro build
+  real para confirmar que valida sem erros.
+
+  manifest.json e layout.json NÃO são criados/editados à mão - a própria
+  documentação do SDK avisa que edição manual desses dois arquivos
+  normalmente deixa o índice do pacote desatualizado. Eles só existem
+  depois de rodar este projeto pelo Package Tool.
+-->
+<AssetPackage Version="0.1.0">
+    <ItemSettings>
+        <ContentType>AIRCRAFT</ContentType>
+        <Title>Embraer E195-E2</Title>
+        <Manufacturer>Embraer</Manufacturer>
+        <Creator>Projeto E195-E2 (independente, não afiliado à Embraer S.A.)</Creator>
+        <Description>Embraer E195-E2 - addon study-level para MSFS 2024. Projeto independente de fã, sem afiliação oficial com a Embraer S.A.</Description>
+    </ItemSettings>
+
+    <Flags>
+        <FSXCompatibility>false</FSXCompatibility>
+    </Flags>
+
+    <Dependencies>
+        <!-- Nenhuma dependência conhecida até agora. -->
+    </Dependencies>
+
+    <AssetGroups>
+        <AssetGroup Name="embraer_e195e2">
+            <Type>SimObject</Type>
+            <Flags>
+                <FSXCompatibility>false</FSXCompatibility>
+            </Flags>
+            <AssetDir>PackageSources\SimObjects\Airplanes\embraer-e195-e2\</AssetDir>
+            <OutputDir>SimObjects\Airplanes\embraer-e195-e2\</OutputDir>
+        </AssetGroup>
+    </AssetGroups>
+</AssetPackage>
