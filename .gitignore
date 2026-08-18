@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+*.log
+.DS_Store
+.vscode/
+*.tsbuildinfo
+coverage/
+CMakeCache.txt
+CMakeFiles/
+
+# Folheto oficial Embraer (copyright Embraer S.A.) - não redistribuir
+# publicamente; mantido só localmente como referência.
+docs/*.pdf

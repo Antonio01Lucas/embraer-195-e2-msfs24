@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Ref: MSFS 2024 SDK - Panel Configuration (HTML/Coherent GT gauges)
+
+  Declara os 5 DUs (Display Units) panorâmicos da suite Honeywell Primus
+  Epic 2.0, cada um apontando para um HTML de entrada que carrega o MESMO
+  bundle único compilado pelo vite.config.ts (src/avionics) — cada HTML
+  identifica seu próprio DU via atributo `data-du`, lido pelo bootstrap em
+  src/avionics/src/main.tsx (ver TODO de Fase 2 nesse arquivo para o
+  roteamento real PFD/MFD/EICAS por DU).
+
+  NOTA DE HONESTIDADE TÉCNICA: o schema exato de <HtmlGauge> pode variar
+  entre versões do MSFS SDK. Esta estrutura segue o padrão documentado
+  publicamente para gauges HTML/Coherent GT: validar contra a referência
+  oficial do MSFS 2024 SDK antes da primeira compilação real do painel.
+
+  Ref: roadmap-sistemas-ata.md (ATA 31) - arquitetura dos 5 DUs:
+  [DU1: PFD L] [DU2: MFD L] [DU3: EICAS] [DU4: MFD R] [DU5: PFD R]
+-->
+<PanelConfig>
+    <Panel>
+        <Name>Panel_DU1_PFD_L</Name>
+        <HtmlGauge>
+            <Index>1</Index>
+            <Filename>DU1_PFD_L.html</Filename>
+            <ExtendedGaugeConfig>0</ExtendedGaugeConfig>
+        </HtmlGauge>
+    </Panel>
+
+    <Panel>
+        <Name>Panel_DU2_MFD_L</Name>
+        <HtmlGauge>
+            <Index>2</Index>
+            <Filename>DU2_MFD_L.html</Filename>
+            <ExtendedGaugeConfig>0</ExtendedGaugeConfig>
+        </HtmlGauge>
+    </Panel>
+
+    <Panel>
+        <Name>Panel_DU3_EICAS</Name>
+        <HtmlGauge>
+            <Index>3</Index>
+            <Filename>DU3_EICAS.html</Filename>
+            <ExtendedGaugeConfig>0</ExtendedGaugeConfig>
+        </HtmlGauge>
+    </Panel>
+
+    <Panel>
+        <Name>Panel_DU4_MFD_R</Name>
+        <HtmlGauge>
+            <Index>4</Index>
+            <Filename>DU4_MFD_R.html</Filename>
+            <ExtendedGaugeConfig>0</ExtendedGaugeConfig>
+        </HtmlGauge>
+    </Panel>
+
+    <Panel>
+        <Name>Panel_DU5_PFD_R</Name>
+        <HtmlGauge>
+            <Index>5</Index>
+            <Filename>DU5_PFD_R.html</Filename>
+            <ExtendedGaugeConfig>0</ExtendedGaugeConfig>
+        </HtmlGauge>
+    </Panel>
+</PanelConfig>

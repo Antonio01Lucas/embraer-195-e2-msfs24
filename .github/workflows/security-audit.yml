@@ -1,0 +1,81 @@
+name: Security & Integrity Audit
+
+# Ref: Regra de Conduta do Projeto - validação contínua de PRs e commits.
+# Roda em toda PR e push para main: auditoria de segurança/integridade
+# (scripts/audit.js), lint estrito do TypeScript dos aviônicos, e build
+# de verificação do core WASM com flags de compilação seguras
+# (-Wall -Wextra -Werror -pedantic, ver src/wasm/CMakeLists.txt).
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  audit-and-lint:
+    name: Audit + Lint (Node/TypeScript)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies (root)
+        run: npm install --no-audit --no-fund
+
+      - name: Install dependencies (avionics)
+        working-directory: src/avionics
+        run: npm install --no-audit --no-fund
+
+      - name: Rodar auditoria de segurança/integridade
+        run: npm run audit
+
+      - name: Type-check estrito (tsconfig strict)
+        working-directory: src/avionics
+        run: npx tsc -p tsconfig.json --noEmit
+
+      - name: Lint (ESLint, zero warnings tolerados)
+        working-directory: src/avionics
+        run: npm run lint --if-present
+
+  wasm-build-check:
+    name: Build de verificação do core WASM (flags seguras)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar toolchain (Clang + CMake)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build
+
+      - name: Configurar (Debug, com sanitizers, testes habilitados)
+        run: >
+          cmake -S src/wasm -B src/wasm/build
+          -G Ninja
+          -DCMAKE_BUILD_TYPE=Debug
+          -DCMAKE_CXX_COMPILER=clang++
+          -DE195E2_BUILD_TESTS=ON
+
+      - name: Compilar
+        run: cmake --build src/wasm/build --config Debug
+
+      - name: Rodar suíte GoogleTest (com ASan/UBSan)
+        run: ctest --test-dir src/wasm/build --output-on-failure
+
+      # Nota: este job compila o core como biblioteca nativa (não WASM real)
+      # apenas para validar que o código respeita -Wall -Wextra -Werror
+      # -pedantic em CI de forma rápida. A compilação real para
+      # WebAssembly (via toolchain do MSFS SDK) roda em ambiente Windows
+      # local do desenvolvedor — TODO(Fase 1): adicionar job dedicado
+      # quando o pipeline do MSFS SDK for integrado ao CI.

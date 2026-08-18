@@ -1,0 +1,26 @@
+{
+  "name": "embraer-e195-e2-msfs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Embraer E195-E2 study-level addon para Microsoft Flight Simulator 2024. Arquitetura: flight model + core de sistemas em C++/WASM, aviônicos (Primus Epic 2.0) em React/TypeScript sobre Coherent GT.",
+  "license": "UNLICENSED",
+  "workspaces": [
+    "src/avionics"
+  ],
+  "scripts": {
+    "build": "npm run build:wasm && npm run build:avionics",
+    "build:wasm": "cmake -S src/wasm -B src/wasm/build -DCMAKE_BUILD_TYPE=Release && cmake --build src/wasm/build --config Release",
+    "build:avionics": "npm run build --workspace=src/avionics",
+    "test": "npm run test:wasm && npm run test:avionics",
+    "test:wasm": "ctest --test-dir src/wasm/build --output-on-failure || echo 'Sem suíte GoogleTest configurada ainda — ver Fase 1'",
+    "test:avionics": "npm run test --workspace=src/avionics --if-present",
+    "audit": "node scripts/audit.js",
+    "lint": "npm run lint:avionics",
+    "lint:avionics": "npm run lint --workspace=src/avionics --if-present",
+    "clean": "rimraf src/wasm/build src/avionics/dist src/avionics/node_modules node_modules"
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5"
+  }
+}
